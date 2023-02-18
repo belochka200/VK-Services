@@ -15,13 +15,14 @@
         android:orientation="vertical">
 
         <com.google.android.material.imageview.ShapeableImageView
+            android:scaleType="centerCrop"
             android:id="@+id/service_card__image"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_gravity="center"
             android:layout_margin="@dimen/medium_indent"
-            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
-            tools:src="@tools:sample/avatars" />
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge"
+            tools:src="@tools:sample/backgrounds/scenic" />
 
         <TextView
             android:id="@+id/service_card__title"

@@ -1,5 +1,9 @@
 package com.example.vkservices.ui.screens
 
+import android.content.Context
+import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
@@ -20,6 +24,11 @@ class Main : Fragment(R.layout.fragment__main_screen) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMainScreenBinding.bind(view)
+        binding.apply {
+            swipeRefreshLayout.setOnRefreshListener {
+                mainScreenViewModel.fetchData()
+            }
+        }
         mainScreenViewModel.uiState.observe(viewLifecycleOwner) { uiState ->
             when (uiState) {
                 is MainScreenUiState.Content -> showContent(
@@ -30,6 +39,21 @@ class Main : Fragment(R.layout.fragment__main_screen) {
                 MainScreenUiState.Loading -> showLoading()
             }
         }
+        checkUserInternet()
+    }
+
+    private fun checkUserInternet() {
+        val manager =
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities = manager.getNetworkCapabilities(manager.activeNetwork)
+        if (capabilities == null)
+            Snackbar.make(
+                requireView(),
+                R.string.connection_error,
+                Snackbar.LENGTH_INDEFINITE
+            ).setAction(R.string.retry) {
+                mainScreenViewModel.fetchData()
+            }.show()
     }
 
     private fun showContent(listOfServices: List<Service>, @StringRes errorMessage: Int?) {
@@ -38,15 +62,28 @@ class Main : Fragment(R.layout.fragment__main_screen) {
                 .setAction(R.string.retry) {
                     mainScreenViewModel.fetchData()
                 }.show()
+        checkUserInternet()
         binding.apply {
+            swipeRefreshLayout.isRefreshing = false
             progressIndicator.isVisible = false
-            rvServicesOfVk.adapter = ServicesVkAdapter(listOfServices)
+            rvServicesOfVk.adapter = ServicesVkAdapter(listOfServices) { service ->
+                showInfoAboutService(service) {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(service.serviceUrl))
+                    startActivity(intent)
+                }
+            }
         }
+    }
+
+    private fun showInfoAboutService(service: Service, clickListener: () -> Unit) {
+        val modalBottomSheet = AboutService(service, clickListener)
+        modalBottomSheet.show(requireActivity().supportFragmentManager, AboutService.TAG)
     }
 
     private fun showLoading() {
         binding.apply {
             progressIndicator.isVisible = true
+            swipeRefreshLayout.isRefreshing = false
         }
     }
 }

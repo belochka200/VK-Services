@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">Vk Services</string>
+    <string name="app_name">Проекты VK</string>
     <string name="error">Ошибка</string>
     <string name="connection_error">Ошибка при подключении</string>
     <string name="projects_of_vk">Проекты VK</string>
     <string name="retry">Повторить</string>
+    <string name="into_service">Перейти в сервис</string>
+    <string name="content_description">Логотип %s</string>
 </resources>
