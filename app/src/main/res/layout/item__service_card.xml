@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/small_indent"
+    android:animateLayoutChanges="true"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/service_card__image"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/medium_indent"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/service_card__title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/medium_indent"
+            android:layout_marginEnd="@dimen/medium_indent"
+            android:layout_marginBottom="@dimen/medium_indent"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            tools:text="ВКонтакте" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

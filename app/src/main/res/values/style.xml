@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.VKServices.MaterialToolbar" parent="Widget.Material3.Toolbar.Surface">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.VKServices.MaterialToolbar</item>
+    </style>
+
+    <style name="ThemeOverlay.VKServices.MaterialToolbar" parent="">
+        <item name="colorSurface">?attr/colorPrimary</item>
+        <item name="colorOnSurface">?attr/colorOnPrimary</item>
+    </style>
+</resources>
